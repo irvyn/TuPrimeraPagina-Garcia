@@ -17,14 +17,14 @@ class PeliculaForm(forms.ModelForm):
 class ResenaForm(forms.ModelForm):
     class Meta:
         model = Resena
-        fields = [
+        fields = (
             'usuario',
             'pelicula',
             'contenido',
             'calificacion',
-        ]
+        )
 
 class UsuarioPerfilForm(forms.ModelForm):
     class Meta:
         model = UsuarioPerfil
-        fields = ['biografia', 'avatar']
+        fields = ('usuario', 'biografia', 'avatar')

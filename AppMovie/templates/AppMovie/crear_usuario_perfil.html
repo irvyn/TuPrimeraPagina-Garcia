@@ -1,0 +1,18 @@
+{% extends "AppMovie/index.html" %}
+{% load static %}
+
+<title>
+    {% block titulo %} Editar perfil {% endblock %}
+</title>
+
+{% block cuerpo %}
+
+<h1>Editar perfil</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <a class="btn btn-secondary" href="/" role="button">Cancelar</a>
+</form>
+
+{% endblock %}

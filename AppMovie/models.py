@@ -11,19 +11,19 @@ class Pelicula(models.Model):
         return self.titulo
 
 class Resena(models.Model): # Reseña de la pelicula
-    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
-    pelicula = models.ForeignKey(Pelicula, on_delete=models.CASCADE)
-    contenido = models.TextField()
-    calificacion = models.IntegerField(choices=[(i, i) for i in range(1, 6)])
+    usuario           = models.ForeignKey(User, on_delete=models.CASCADE)
+    pelicula          = models.ForeignKey(Pelicula, on_delete=models.CASCADE)
+    contenido         = models.TextField()
+    calificacion      = models.IntegerField(choices=[(i, i) for i in range(1, 6)])
     fecha_publicacion = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f'Reseña de {self.usuario.username} para {self.pelicula.titulo}'
 
 class UsuarioPerfil(models.Model):
-    usuario = models.OneToOneField(User, on_delete=models.CASCADE)
+    usuario   = models.OneToOneField(User, on_delete=models.CASCADE)
     biografia = models.TextField(blank=True, null=True)
-    avatar = models.ImageField(upload_to='avatars/', blank=True, null=True)
+    avatar    = models.ImageField(upload_to='avatars/', blank=True, null=True)
 
     def __str__(self):
         return self.usuario.username
