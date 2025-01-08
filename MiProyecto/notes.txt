@@ -6,3 +6,5 @@ python manage.py runserver
 
 python manage.py makemigrations
 python manage.py migrate
+
+python3 -m pip install Pillow

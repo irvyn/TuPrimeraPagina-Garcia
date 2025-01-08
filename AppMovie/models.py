@@ -2,9 +2,9 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Pelicula(models.Model):
-    titulo = models.CharField(max_length=200)
-    genero = models.CharField(max_length=100)
-    director = models.CharField(max_length=100)
+    titulo        = models.CharField(max_length=200)
+    genero        = models.CharField(max_length=100)
+    director      = models.CharField(max_length=100)
     fecha_estreno = models.DateField()
 
     def __str__(self):
@@ -20,9 +20,10 @@ class Resena(models.Model): # Reseña de la pelicula
     def __str__(self):
         return f'Reseña de {self.usuario.username} para {self.pelicula.titulo}'
 
-class Usuario(models.Model):
+class UsuarioPerfil(models.Model):
     usuario = models.OneToOneField(User, on_delete=models.CASCADE)
     biografia = models.TextField(blank=True, null=True)
+    avatar = models.ImageField(upload_to='avatars/', blank=True, null=True)
 
     def __str__(self):
         return self.usuario.username
