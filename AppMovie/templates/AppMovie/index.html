@@ -28,28 +28,28 @@
 
     {% block cuerpo %}
 
-    <form class="d-flex" role="search" method="get">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+    <form class="d-flex" role="search" method="get" action="{% url 'buscar_pelicula' %}">
+        <input class="form-control me-2" name="q" placeholder="Buscar pelicula por titulo, genero, director, fecha de destreno..." value="{{ query|default:'' }}" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-primary" type="submit">Buscar</button>
     </form>
 
     {% if resultados %}
         <table class="table table-striped table-bordered">
-            <thead class="table-dark">
+            <thead>
                 <tr>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    {% comment %} <th>Email</th> {% endcomment %}
-                    <th>Tipo</th>
+                    <th>Titulo</th>
+                    <th>Genero</th>
+                    <th>Director</th>
+                    <th>Fecha de estreno</th>
                 </tr>
             </thead>
             <tbody>
                 {% for resultado in resultados %}
                     <tr>
-                        <td>{{ resultado.nombre }}</td>
-                        <td>{{ resultado.apellido }}</td>
-                        {% comment %} <td>{{ resultado.email }}</td> {% endcomment %}
-                        <td>{{ resultado.tipo }}</td>
+                        <td>{{ resultado.titulo }}</td>
+                        <td>{{ resultado.genero }}</td>
+                        <td>{{ resultado.director }}</td>
+                        <td>{{ resultado.fecha_estreno }}</td>
                     </tr>
                 {% endfor %}
             </tbody>

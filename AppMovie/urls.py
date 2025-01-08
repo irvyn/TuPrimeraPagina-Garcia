@@ -16,10 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import index, crear_pelicula, crear_resena, crear_usuario
+from .views import index, crear_pelicula, crear_resena, crear_usuario, buscar_pelicula
 
+# Se registran 3 formularios y 1 buscador
 urlpatterns = [
     path('', index, name='index'),
+    path('buscar_pelicula', buscar_pelicula, name='buscar_pelicula'),
     path('crear_pelicula', crear_pelicula, name='crear_pelicula'),
     path('crear_resena', crear_resena, name='crear_resena'),
     path('crear_usuario', crear_usuario, name='crear_usuario'),
