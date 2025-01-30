@@ -8,3 +8,7 @@ python manage.py makemigrations
 python manage.py migrate
 
 python3 -m pip install Pillow
+
+http://www.omdbapi.com/?apikey=1c186aa0t=Sonic&y=2024
+
+http://www.omdbapi.com/?t=Sonic&y=2024
