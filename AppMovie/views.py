@@ -67,11 +67,26 @@ def crear_usuario(request):
         form = UsuarioPerfilForm()
 
     return render(request, 'AppMovie/crear_usuario_perfil.html', {'form': form})
+    
+def post_movie(request):
+    if request.method == 'POST':
+        form = PeliculaForm(request.POST)
 
+        if form.is_valid():
+            form.save()
+
+    else:
+        form = PeliculaForm()
+
+    return render(request, 'AppMovie/peliculas.html', {'movies': get_all_movies(), 'form': PeliculaForm()})
 
 # Devuelve las pelicuas registradas en la BD y consulta en un API para obtener su poster
 def get_movies(request):
-    peliculas = Pelicula.objects.all()
+    return render(request,'AppMovie/peliculas.html', {'movies': get_all_movies(), 'form': PeliculaForm()})
+
+def get_all_movies():
+    peliculas = Pelicula.objects.all().order_by('-id')
+
     resultados = []
 
     for p in peliculas:
@@ -83,8 +98,9 @@ def get_movies(request):
         # Comprueba si se encontró la película
         if data['Response'] == 'True':
             resultados.append({
-                'titulo': data['Title'] + ' ('+data['Year']+')',
-                'poster': data['Poster']
+                'id'     : data['imdbID'],
+                'titulo' : data['Title'] + ' ('+data['Year']+')',
+                'poster' : data['Poster']
             })
         else:
             resultados.append({
@@ -92,7 +108,12 @@ def get_movies(request):
                 'url': 'Poster not found'
             })
 
-    return render(request, 'AppMovie/peliculas.html', {'movies': resultados})
+    return resultados
+
+def get_movie(request, id):
+    response = requests.get(f'http://www.omdbapi.com/?apikey=1c186aa0&i={id}')
+
+    return render(request,'AppMovie/movie.html', {'movie': response.json()})
 
 # Devuelve página acerca de
 def get_about(request):
