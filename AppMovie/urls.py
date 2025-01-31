@@ -16,7 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import index, crear_pelicula, crear_resena, crear_usuario, buscar_pelicula, get_movie, get_movies, get_about, post_movie
+from .views import index, edit_profile, get_movie, get_movies, get_about, post_movie, login, sign_up, log_out
+
+from django.conf import settings
+from django.conf.urls.static import static
 
 # Se registran 3 formularios y 1 buscador
 urlpatterns = [
@@ -25,12 +28,14 @@ urlpatterns = [
     path('movies', get_movies, name='movies'),
     path('about', get_about, name='about'),
     path('post_movie', post_movie, name='post_movie'),
-    path('movie/<str:id>/', get_movie, name='movie'),
+    path('movie/<str:imdbID>/<int:id>/', get_movie, name='movie'),
 
+    path('login', login, name='login'),
+    path('sign_up', sign_up, name='sign_up'),
+    path('log_out', log_out, name='log_out'),
 
-
-    path('buscar_pelicula', buscar_pelicula, name='buscar_pelicula'),
-    path('crear_pelicula', crear_pelicula, name='crear_pelicula'),
-    path('crear_resena', crear_resena, name='crear_resena'),
-    path('crear_usuario', crear_usuario, name='crear_usuario'),
+    path('edit_profile', edit_profile, name='edit_profile'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

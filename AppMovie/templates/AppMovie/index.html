@@ -22,24 +22,24 @@
         <div class="container-fluid d-flex justify-content-between">
             <ul class="nav nav-pills">
                 <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="{% url 'movies' %}">
-                    <i class="bi-film"></i>My movies</a>
-                </li>
+                    <a class="nav-link" aria-current="page" href="{% url 'movies' %}">
+                        <i class="bi-film"></i>My movies</a>
+                    </li>
                 <li class="nav-item">
-                <a class="nav-link" href="{% url 'about' %}">
-                    <i class="bi-journal-bookmark"></i>About</a>
+                    <a class="nav-link" href="{% url 'about' %}">
+                        <i class="bi-journal-bookmark"></i>About</a>
                 </li>
             </ul>
 
             <div class="btn-group">
                 <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="{% static 'empty-profile.png' %}" alt="Profile" width="30" height="30" class="d-inline-block align-text-top">
-                    <span class="ms-2">NombreUsuario</span>
+                    <span class="ms-2">{{ user.username}}</span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="{% url 'crear_usuario' %}">Edit profile</a></li>
+                    <li><a class="dropdown-item" href="{% url 'edit_profile' %}">Edit profile</a></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Log out</a></li>
+                    <li><a class="dropdown-item" href="{% url 'log_out' %}">Log out</a></li>
                 </ul>
             </div>
         </div>

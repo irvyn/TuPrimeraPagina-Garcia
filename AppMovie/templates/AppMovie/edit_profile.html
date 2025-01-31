@@ -7,12 +7,12 @@
 
 {% block cuerpo %}
 
-<h1>Editar perfil</h1>
-<form method="post">
+<h1>Edit  profile</h1>
+<form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Guardar</button>
-    <a class="btn btn-secondary" href="/" role="button">Cancelar</a>
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a class="btn btn-secondary" href="/" role="button">Cancel</a>
 </form>
 
 {% endblock %}
