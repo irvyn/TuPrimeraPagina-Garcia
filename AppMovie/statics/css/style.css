@@ -1,0 +1,17 @@
+.logo-img{
+    width: auto;
+    height: 95px;
+}
+
+.search-input {
+    max-width: 500px;
+}
+
+.form-search {
+    margin: 10px;
+}
+
+.carousel-border {
+    border: 2px solid #007bff;
+    border-radius: 5px;
+}

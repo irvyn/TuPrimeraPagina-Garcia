@@ -1,0 +1,32 @@
+{% extends "AppMovie/index.html" %}
+{% load static %}
+
+{% block cuerpo %}
+
+<div class="container mt-5">
+    <h1>About</h1>
+
+    <div class="row mt-5">
+        <div class="col">
+            <div class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="{% static 'programmer.jpg' %}" class="d-block w-100" alt="Me">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <p class="fs-2">Software Developer</p>
+            <p class="fs-4">Since I was a child, I have always had a great passion for technology. I studied at a university that provided me with excellent training, and now I work at an institution where I can be creative and use my skills to solve problems. In my free time, I enjoy reading, hiking, and collaborating on open-source projects. I am always looking to learn something new and contribute to the community.</p>
+      </div>
+</div>
+
+<div class="container-fluid mt-2">
+    <a class="btn btn-light" href="/" role="button">
+        <i class="bi-house"></i>Home
+    </a>
+</div>
+
+{% endblock %}
+

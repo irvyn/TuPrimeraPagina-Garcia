@@ -1,7 +1,10 @@
+import requests
+
 from django.shortcuts import render, redirect
 from django.db.models import Q
 from .forms import PeliculaForm, ResenaForm, UsuarioPerfilForm
 from .models import Pelicula
+from datetime import datetime
 
 # Renderiza la vista principal
 def index(request):
@@ -54,7 +57,6 @@ def crear_resena(request):
     return render(request, 'AppMovie/crear_resena.html', {'form': form})
 
 # Formulario de usuario, si ingresa información la valida y la guarda, sino regresa la vista para su llenado
-
 def crear_usuario(request):
     if request.method == 'POST':
         form = UsuarioPerfilForm(request.POST)
@@ -65,3 +67,33 @@ def crear_usuario(request):
         form = UsuarioPerfilForm()
 
     return render(request, 'AppMovie/crear_usuario_perfil.html', {'form': form})
+
+
+# Devuelve las pelicuas registradas en la BD y consulta en un API para obtener su poster
+def get_movies(request):
+    peliculas = Pelicula.objects.all()
+    resultados = []
+
+    for p in peliculas:
+        # Realizar una llamada API a la API de OMDb
+        year = p.fecha_estreno.year
+        response = requests.get(f'http://www.omdbapi.com/?apikey=1c186aa0&t={p.titulo}&y={year}')
+        data = response.json()
+
+        # Comprueba si se encontró la película
+        if data['Response'] == 'True':
+            resultados.append({
+                'titulo': data['Title'] + ' ('+data['Year']+')',
+                'poster': data['Poster']
+            })
+        else:
+            resultados.append({
+                'titulo': p.titulo,
+                'url': 'Poster not found'
+            })
+
+    return render(request, 'AppMovie/peliculas.html', {'movies': resultados})
+
+# Devuelve página acerca de
+def get_about(request):
+    return render(request, 'AppMovie/acerca_de.html')

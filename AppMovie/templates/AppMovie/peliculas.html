@@ -1,0 +1,55 @@
+{% extends "AppMovie/index.html" %}
+{% load static %}
+
+{% block cuerpo %}
+
+<div class="container-fluid mt-2">
+    <h1>My movies</h1>
+
+    <button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+
+        <i class="bi-plus"></i>New movie
+    </button>
+
+    <div class="row row-cols-1 row-cols-md-4 g-4 mt-2">
+        {% if movies %}
+            {% for p in movies %}
+                <div class="col">
+                    <div class="card" style="width: 17rem;">
+                        <img src="{{ p.poster }}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ p.titulo }}</h5>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="text-center">No movies.</p>
+        {% endif %}
+    </div>
+
+    <a class="btn btn-light" href="/" role="button">
+        <i class="bi-house"></i>Home
+    </a>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">New movie</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
