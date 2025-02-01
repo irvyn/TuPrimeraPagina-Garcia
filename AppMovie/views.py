@@ -11,8 +11,19 @@ from django.contrib.auth import authenticate, login as auth_login
 from .forms import UsuarioForm
 
 # Renderiza la vista principal
+@login_required
 def index(request):
-    return render(request, 'AppMovie/index.html')
+    return render(request, 'AppMovie/index.html', {'user': get_user(request)})
+
+@login_required
+def get_user(request):
+    profile = UsuarioPerfil.objects.get(usuario=request.user)
+
+    return {
+        'id': request.user.id,
+        'username': request.user.username,
+        'avatar': profile.avatar.url if profile.avatar else '/static/assets/empty-profile.png'
+    }
 
 # Se guarda la biografia y avatar del usuario logueado
 @login_required
@@ -36,7 +47,7 @@ def edit_profile(request):
     else:
         form = UsuarioPerfilForm()
 
-    return render(request, 'AppMovie/edit_profile.html', {'form': form})
+    return render(request, 'AppMovie/edit_profile.html', {'form': form, 'user': get_user(request)})
 
 @login_required
 def post_movie(request):
@@ -49,19 +60,12 @@ def post_movie(request):
     else:
         form = PeliculaForm()
 
-    return render(request, 'AppMovie/peliculas.html', {'movies': get_all_movies(), 'form': PeliculaForm()})
+    return render(request, 'AppMovie/peliculas.html', {'movies': get_all_movies(), 'form': PeliculaForm(), 'user': get_user(request)})
 
 # Devuelve las pelicuas registradas en la BD y consulta en un API para obtener su poster
 @login_required
 def get_movies(request):
-
-    user = {
-        'id': request.user.id,
-        'username': request.user.username,
-        'email': request.user.email
-    }
-
-    return render(request,'AppMovie/peliculas.html', {'movies': get_all_movies(), 'user': user, 'form': PeliculaForm()})
+    return render(request,'AppMovie/peliculas.html', {'movies': get_all_movies(), 'form': PeliculaForm(), 'user': get_user(request)})
 
 def get_all_movies():
     peliculas = Pelicula.objects.all().order_by('-id')
@@ -106,12 +110,12 @@ def get_movie(request, imdbID, id):
     movie = response.json()
     movie['id'] = id
 
-    return render(request,'AppMovie/movie.html', {'movie': movie, 'form': form})
+    return render(request,'AppMovie/movie.html', {'movie': movie, 'form': form, 'user': get_user(request)})
 
 @login_required
 # Devuelve página acerca de
 def get_about(request):
-    return render(request, 'AppMovie/acerca_de.html')
+    return render(request, 'AppMovie/acerca_de.html', {'user': get_user(request)})
 
 # login
 def login(request):

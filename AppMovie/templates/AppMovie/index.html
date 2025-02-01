@@ -13,7 +13,6 @@
 
   </head>
   <body>
-
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <a class="navbar-brand" href="/" alt="Home">
             <img src="{% static 'logo.png' %}" class="logo-img" alt="Logo">
@@ -33,7 +32,7 @@
 
             <div class="btn-group">
                 <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="{% static 'empty-profile.png' %}" alt="Profile" width="30" height="30" class="d-inline-block align-text-top">
+                    <img src="{{ user.avatar }}" alt="Profile" width="30" height="30" class="d-inline-block align-text-top">
                     <span class="ms-2">{{ user.username}}</span>
                 </a>
                 <ul class="dropdown-menu">
