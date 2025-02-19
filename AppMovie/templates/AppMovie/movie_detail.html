@@ -28,7 +28,7 @@
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit" class="btn btn-primary">Guardar</button>
-            <a class="btn btn-secondary" href="{% url 'movies' %}" role="button">Cancelar</a>
+            <a class="btn btn-secondary" href="{% url 'list' %}" role="button">Cancelar</a>
         </form>
     </div>
 </div>

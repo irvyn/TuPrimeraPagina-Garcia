@@ -6,7 +6,6 @@ from django.shortcuts import render, redirect
 from django.db.models import Q
 from .forms import PeliculaForm, ResenaForm, UsuarioPerfilForm, UsuarioForm, UsuarioLoginForm
 from .models import Pelicula, UsuarioPerfil
-
 from django.contrib.auth import authenticate, login as auth_login
 from .forms import UsuarioForm
 
@@ -60,12 +59,12 @@ def post_movie(request):
     else:
         form = PeliculaForm()
 
-    return render(request, 'AppMovie/peliculas.html', {'movies': get_all_movies(), 'form': PeliculaForm(), 'user': get_user(request)})
+    return render(request, 'AppMovie/movie_list.html', {'movies': get_all_movies(), 'form': PeliculaForm(), 'user': get_user(request)})
 
 # Devuelve las pelicuas registradas en la BD y consulta en un API para obtener su poster
 @login_required
 def get_movies(request):
-    return render(request,'AppMovie/peliculas.html', {'movies': get_all_movies(), 'form': PeliculaForm(), 'user': get_user(request)})
+    return render(request,'AppMovie/movie_list.html', {'movies': get_all_movies(), 'form': PeliculaForm(), 'user': get_user(request)})
 
 def get_all_movies():
     peliculas = Pelicula.objects.all().order_by('-id')
@@ -110,7 +109,7 @@ def get_movie(request, imdbID, id):
     movie = response.json()
     movie['id'] = id
 
-    return render(request,'AppMovie/movie.html', {'movie': movie, 'form': form, 'user': get_user(request)})
+    return render(request,'AppMovie/movie_detail.html', {'movie': movie, 'form': form, 'user': get_user(request)})
 
 @login_required
 # Devuelve página acerca de

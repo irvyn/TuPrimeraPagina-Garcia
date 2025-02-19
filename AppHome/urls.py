@@ -15,26 +15,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from .views import index, edit_profile, get_movie, get_movies, get_about, post_movie, login, sign_up, log_out
+from django.urls import path, include
+from .views import index
 
 from django.conf import settings
 from django.conf.urls.static import static
 
 # Se registran 3 formularios y 1 buscador
 urlpatterns = [
-    path('', index, name='movies'),
+    path('', index, name='index'),
 
-    path('list/', get_movies, name='list'),
-    path('about/', get_about, name='about'),
-    path('post_movie/', post_movie, name='post_movie'),
-    path('movie/<str:imdbID>/<int:id>/', get_movie, name='movie'),
-
-    path('login/', login, name='login'),
-    path('sign_up/', sign_up, name='sign_up'),
-    path('log_out/', log_out, name='log_out'),
-
-    path('edit_profile/', edit_profile, name='edit_profile'),
 ]
 
 if settings.DEBUG:

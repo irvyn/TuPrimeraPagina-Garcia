@@ -14,16 +14,20 @@
   </head>
   <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <a class="navbar-brand" href="/" alt="Home">
-            <img src="{% static 'logo.png' %}" class="logo-img" alt="Logo">
+        <a class="navbar-brand" href="{% url 'movies' %}" alt="Home">
+            <img src="{% static 'logo_movie.png' %}" class="logo-img" alt="Logo">
         </a>
 
         <div class="container-fluid d-flex justify-content-between">
             <ul class="nav nav-pills">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="{% url 'movies' %}">
+                    <a class="nav-link" aria-current="page" href="/">
+                        <i class="bi-house"></i>Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{% url 'list' %}">
                         <i class="bi-film"></i>My movies</a>
-                    </li>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'about' %}">
                         <i class="bi-journal-bookmark"></i>About</a>
