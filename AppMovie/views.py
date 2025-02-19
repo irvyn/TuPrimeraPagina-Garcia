@@ -8,21 +8,12 @@ from .forms import PeliculaForm, ResenaForm, UsuarioPerfilForm, UsuarioForm, Usu
 from .models import Pelicula, UsuarioPerfil
 from django.contrib.auth import authenticate, login as auth_login
 from .forms import UsuarioForm
+from .utils import get_user
 
 # Renderiza la vista principal
 @login_required
 def index(request):
     return render(request, 'AppMovie/index.html', {'user': get_user(request)})
-
-@login_required
-def get_user(request):
-    profile = UsuarioPerfil.objects.get(usuario=request.user)
-
-    return {
-        'id': request.user.id,
-        'username': request.user.username,
-        'avatar': profile.avatar.url if profile.avatar else '/static/assets/empty-profile.png'
-    }
 
 # Se guarda la biografia y avatar del usuario logueado
 @login_required
@@ -42,7 +33,7 @@ def edit_profile(request):
                 profile.usuario = request.user
 
             profile.save()
-            return redirect('index')
+            return redirect('movies')
     else:
         form = UsuarioPerfilForm()
 
@@ -100,8 +91,10 @@ def get_movie(request, imdbID, id):
         if form.is_valid():
             resena = form.save(commit=False)
             resena.pelicula_id = id
-            resena.usuario_id = request.user.id,
+            resena.usuario_id = request.user.id
             resena.save()
+
+            return redirect('list')
     else:
         form = ResenaForm()
 
@@ -126,7 +119,7 @@ def login(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 auth_login(request, user)
-                return redirect('index')  # Redirect to a success page
+                return redirect('/')  # Redirect to a success page
             else:
                 form.add_error(None, 'Invalid username or password')
     else:
@@ -139,7 +132,12 @@ def sign_up(request):
     if request.method == 'POST':
         form = UsuarioForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save(commit=False)
+            user.set_password(form.cleaned_data['password'])  # Encripta la contraseña
+            user.save()
+            
+            UsuarioPerfil.objects.create(usuario=user)
+            
             return redirect('login')
     else:
         form = UsuarioForm()

@@ -16,14 +16,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import index
+from .views import index, delete_blog
 
 from django.conf import settings
 from django.conf.urls.static import static
 
 # Se registran 3 formularios y 1 buscador
 urlpatterns = [
-    path('', index, name='blog')
+    path('', index, name='blog'),
+    path('delete/<int:blog_id>/', delete_blog, name='delete_blog'),
+
 ]
 
 if settings.DEBUG:

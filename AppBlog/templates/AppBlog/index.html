@@ -45,21 +45,19 @@
     <div class="container-fluid mt-2">
         <h1>Blog entries</h1>
 
-        <button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <button type="button" class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
             <i class="bi-plus"></i>New
         </button>
 
-        <div class="row row-cols-1 row-cols-md-4 g-4 mt-2">
+        <div >
             {% if entries %}
                 {% for p in entries %}
-                    <div class="col">
-                        <div class="card" style="width: 17rem;">
-                            <a href="{% url 'movie' p.imdbID p.id%}" class="text-decoration-none">
-                                <img src="{{ p.poster }}" class="card-img-top" alt="...">
-                                <div class="card-body text-center text-body-secondary">
-                                    <h5 class="card-title text-reset">{{ p.titulo }}</h5>
-                                </div>
-                            </a>
+                    <div class="card w-75 mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ p.title }}</h5>
+                            <span class="badge text-bg-light">{{ p.created_at }}</span>
+                            <p class="card-text">{{ p.content }}</p>
+                            <a href="{% url 'delete_blog' p.id %}" class="btn btn-danger">Delete</a>
                         </div>
                     </div>
                 {% endfor %}
@@ -78,7 +76,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="{% url 'post_movie' %}">
+                    <form method="POST" action="{% url 'blog' %}">
                         {% csrf_token %}
                         {{ form.as_p }}
 
