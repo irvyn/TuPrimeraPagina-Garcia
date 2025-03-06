@@ -14,5 +14,5 @@ http://www.omdbapi.com/?apikey=1c186aa0t=Sonic&y=2024
 http://www.omdbapi.com/?t=Sonic&y=2024
 
 
-pip --version 
+pip --version
 pip install requests

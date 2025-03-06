@@ -4,6 +4,8 @@
 
 Esta aplicación permite a los usuarios agregar películas y comentarios sobre ellas. Es un lugar para revisar películas y ver qué es popular. Los usuarios pueden agregar nuevas películas, comentar sobre películas existentes y editar sus perfiles. La página de inicio incluye una función de búsqueda para encontrar películas que ya se han agregado.
 
+Video: https://drive.google.com/file/d/1TLmm-KCPDBPPJNZrefG6SNxL9roq1ij8/view?usp=sharing
+
 ## Funcionalidades
 
 - **Agregar Películas**: Los usuarios pueden agregar nuevas películas a la plataforma.
