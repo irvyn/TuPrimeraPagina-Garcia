@@ -78,8 +78,10 @@ def get_all_movies():
             })
         else:
             resultados.append({
-                'titulo': p.titulo,
-                'url': 'Poster not found'
+                'id'     : p.id,
+                'imdbID' : -1,
+                'titulo' : p.titulo,
+                'poster' : '/media/no-poster-available.jpg' # Poster not found no-poster-available.jpg
             })
 
     return resultados
@@ -98,8 +100,14 @@ def get_movie(request, imdbID, id):
     else:
         form = ResenaForm()
 
-    response = requests.get(f'http://www.omdbapi.com/?apikey=1c186aa0&i={imdbID}')
-    movie = response.json()
+    movie = {}
+
+    if imdbID != '-1':
+        response = requests.get(f'http://www.omdbapi.com/?apikey=1c186aa0&i={imdbID}')
+        movie = response.json()
+    else:
+        movie['imdbID'] = -1
+
     movie['id'] = id
 
     return render(request,'AppMovie/movie_detail.html', {'movie': movie, 'form': form, 'user': get_user(request)})
@@ -135,9 +143,9 @@ def sign_up(request):
             user = form.save(commit=False)
             user.set_password(form.cleaned_data['password'])  # Encripta la contraseña
             user.save()
-            
+
             UsuarioPerfil.objects.create(usuario=user)
-            
+
             return redirect('login')
     else:
         form = UsuarioForm()
